@@ -1,0 +1,7 @@
+
+public class Employee_Object {
+	String name ="";
+	String in_out = "";
+	String time = "";
+
+}
