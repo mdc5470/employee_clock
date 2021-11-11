@@ -3,6 +3,7 @@ from openpyxl import load_workbook
 from datetime import datetime
 from datetime import timedelta
 from io import StringIO
+from hours_worked import *
 
 #All functions of the program work.
 #Needs checks and balnces and errors
@@ -38,38 +39,22 @@ def delete(e_name):
 	print(df)
 	df.to_csv('employee_id.csv', index=False)
 	
-def week_time(day):
-
+def hours_work(day, type):
+	
 	df = read_df()
 	
-	for j in range(3):
-		
-		day1_time_in = df[day + " IN"]
-		day1_time_out = df[day + " OUT"]
-		duration_time = []
+	if type == "week":
 	
-		for i in range(4):
-			time_in = datetime.strptime(day1_time_in[i], '%H:%M').time()
-			time_out = datetime.strptime(day1_time_out[i], '%H:%M').time()
+		hours = week_time(day, df)
 		
-			t1 = timedelta(hours=time_in.hour, minutes=time_in.minute, seconds=time_in.second)
-			t2 = timedelta(hours=time_out.hour, minutes=time_out.minute, seconds=time_out.second)
-
-			duration = str(t2-t1)
-			duration_time.append(duration)
+	elif type == "day":
 	
-		daytime = pd.DataFrame(duration_time, columns=['Work Time'])
-		print(daytime)	
-		day_start = datetime.strptime(day, '%m/%d/%Y')
-		day = day_start + timedelta(days=1)
-		day = day.strftime('%m/%d/%Y')
-		
-		
-def day_time(day):
-
-	df = read_df()
-	day_time_in = df[day + " IN"]
-	day_time_out = df[day + " OUT"]
+		hours = day_time(day, df)
+	
+	print(hours)
+	
+	
+	
 
 def export_cv(defin):
 
@@ -77,4 +62,4 @@ def export_cv(defin):
 	df.to_csv('Rossell Clock ' + defin + '.csv', index=False)
 
 
-week_time("11/09/2021")
+hours_work("11/09/2021", "week")
