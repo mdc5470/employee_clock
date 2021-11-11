@@ -45,6 +45,7 @@ def main_page():
 		label1.destroy()
 		label2=Label(root, text="Export to CSV")
 		label2.pack()
+		button3=Button(root, text="Obtain Week data to CSV", command=lambda : hours_work("11/09/2021", "week")).pack()
 		button2=Button(root, text="Export to CSV", command=lambda : export_cv("Employee Name"))
 		button1=Button(root, text="Back to Main Page", command=back)
 		button1.pack()

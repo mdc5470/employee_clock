@@ -51,15 +51,14 @@ def hours_work(day, type):
 	
 		hours = day_time(day, df)
 	
-	print(hours)
+	export_cv(hours, type)
+	
+	return(hours)
 	
 	
 	
 
-def export_cv(defin):
+def export_cv(df, name):
 
-	df = info_read(defin)
-	df.to_csv('Rossell Clock ' + defin + '.csv', index=False)
+	df.to_csv('Rossell Clock ' + name + '.csv', index=False)
 
-
-hours_work("11/09/2021", "week")
