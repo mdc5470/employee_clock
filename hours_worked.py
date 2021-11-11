@@ -3,10 +3,9 @@ from openpyxl import load_workbook
 from datetime import datetime
 from datetime import timedelta
 
-def day_calc(day, df, num_days):
+def day_calc(day, df, num_days, num_employ):
 
 # These will be grabbed values, but for now they are values that are used 
-	num_employ = 4
 
 	total = pd.DataFrame()
 

@@ -42,16 +42,17 @@ def delete(e_name):
 def hours_work(day, type):
 	
 	df = read_df()
+	num_employ = len(df)
 	
 	if type == "week":
 	
 		num_days = 7
-		hours = day_calc(day, df, num_days)
+		hours = day_calc(day, df, num_days, num_employ)
 		
 	elif type == "day":
 	
 		num_days = 1
-		hours = day_calc(day, df, num_days)
+		hours = day_calc(day, df, num_days, num_employ)
 	
 	export_cv(hours, type)
 	
