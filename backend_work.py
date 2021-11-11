@@ -45,11 +45,13 @@ def hours_work(day, type):
 	
 	if type == "week":
 	
-		hours = week_time(day, df)
+		num_days = 7
+		hours = day_calc(day, df, num_days)
 		
 	elif type == "day":
 	
-		hours = day_time(day, df)
+		num_days = 1
+		hours = day_calc(day, df, num_days)
 	
 	export_cv(hours, type)
 	
@@ -62,3 +64,4 @@ def export_cv(df, name):
 
 	df.to_csv('Rossell Clock ' + name + '.csv', index=False)
 
+hours_work("11/09/2021", "day")

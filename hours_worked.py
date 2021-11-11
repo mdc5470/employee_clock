@@ -3,9 +3,8 @@ from openpyxl import load_workbook
 from datetime import datetime
 from datetime import timedelta
 
-def week_time(day, df):
+def day_calc(day, df, num_days):
 
-	num_days = 3
 # These will be grabbed values, but for now they are values that are used 
 	num_employ = 4
 
@@ -38,8 +37,4 @@ def week_time(day, df):
 	
 	return(total)
 		
-def day_time(day):
 
-	df = read_df()
-	day_time_in = df[day + " IN"]
-	day_time_out = df[day + " OUT"]
