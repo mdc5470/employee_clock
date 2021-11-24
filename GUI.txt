@@ -15,7 +15,7 @@ def main_page():
 		menun()
 		global label2
 		global button2
-		global button1
+		global button1s
 		label1.destroy()
 		label2=Label(root, text="Add Employee")
 		label2.pack()

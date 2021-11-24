@@ -13,7 +13,7 @@ def init_serial():
 	ser.open()
 	
 	if ser.isOpen():
-		print("OPen")
+		print("OPen")dataS
 		
 
 #Use the function to find if the UID is already used by another person.
