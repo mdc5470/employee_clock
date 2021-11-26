@@ -3,14 +3,13 @@ import serial
 def init_serial():
 	COM = 1
 	global ser
-	ser = serial.Serial()
-	ser.baudrate = 9600
-	ser.port = COM - 1
+	
+	ser = serial.Serial("/dev/ttyUSB0", 9600)
 	
 	ser.timeout = 10
-	ser.open()
+	w = ser.read
 	
 	if ser.isOpen():
-		print("OPen")
+		print(w)
 		
 init_serial()
