@@ -2,7 +2,7 @@
 
 from tkinter import *
 from backend_work import *
-
+from employee_clock_in_out import *
 
 root = Tk()
 root.title("Rossell Automation")
@@ -15,11 +15,16 @@ def main_page():
 		menun()
 		global label2
 		global button2
-		global button1
+		global button1s
 		label1.destroy()
 		label2=Label(root, text="Add Employee")
 		label2.pack()
-		button2=Button(root, text="Add Employee", command=lambda : add("n", "123"))
+		e_name=Entry(root, bd = 5).pack()
+		#Needs to wait for a new UID to be scanned so that it does not assign a already used UID to the person.
+		#UID = add_people().pack()
+		#print(UID)
+		button2=Button(root, text="Add Employee", command=lambda : det_in_out())
+		
 		button1=Button(root, text="Back to Main Page", command=back)
 		button1.pack()
 		button2.pack(side=BOTTOM)
