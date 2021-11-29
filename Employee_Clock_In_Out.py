@@ -1,25 +1,53 @@
 import serial 
+import time
 import pandas as pd
 from backend_work import *
+from pyfirmata import Arduino, util, STRING_DATA
+
+board = Arduino("/dev/ttyUSB0")
 
 def init_serial():
+	i = 0
 	COM = 1
 	global ser
-	
-	ser = serial.Serial("/dev/ttyUSB0", 9600)
+	ser = serial.Serial()
+	ser.baudrate = 9600
+	ser.port = "/dev/ttyUSB0"
 	
 	ser.timeout = 10
-	w = ser.read
-	
-	if ser.isOpen():
-<<<<<<< HEAD
-		print(w)
-		
-init_serial()
-=======
-		print("OPen")dataS
-		
+	ser.open()
 
+	return(ser)
+	
+			
+	
+	#if ser.isOpen()
+	
+def send_msg(text):
+	if text:
+		board.send_sysex( STRING_DATA, util.str_to_two_byte_iter(text))
+	
+def read_data():
+	
+	ser = init_serial()
+	RFID_Data = ser.readline()
+	if RFID_Data:
+		RFID_Date = RFID_Data.decode()
+		RFID_Date = RFID_Data.strip()
+		RFID_Data = str(RFID_Data);
+		return(RFID_Data)
+	
+def write_data():
+
+	ser = init_serial()
+	e_name = "Michael"
+	ser.write(bytes(e_name, 'utf-8'))
+	time.sleep(0.05)
+	
+
+while(True):		
+	data = write_data()
+	print(data)
 #Use the function to find if the UID is already used by another person.
  
 
@@ -51,6 +79,4 @@ def det_in_out():
 	
 	
 	#Determine if this person is already clocked in?
-	
-	
->>>>>>> 79375607629906771d2014b39cb709d9baf56166
+
