@@ -1,9 +1,10 @@
 import pandas as pd
 from openpyxl import load_workbook
-from datetime import datetime
+from datetime import date
 from datetime import timedelta
 from io import StringIO
 from hours_worked import *
+
 
 #All functions of the program work.
 #Needs checks and balnces and errors
@@ -11,26 +12,48 @@ from hours_worked import *
 
 #Export Data to Pandas DF
 def read_df():
-	df = pd.read_csv('employee_id.csv', index_col=False)
+	df = pd.read_csv('employee_id.csv')
 	df = df.dropna()
 	return(df)
 
 def info_read(col):
 	df = read_df()
 	df_info = df[col]
-	return(df_info)
+	return(str(df_info))
+
+#Function should be good to go
+def find_employee(UID):
+	df = pd.read_csv('employee_id.csv', index_col=False)
+	name_df = df["UID"]
+	length = len(name_df)
+#Adds people when they are not already in the system.
+	try:
+		for l in range(len(name_df)):
+			plce = df.iloc[l]["UID"]
+		
+			if plce == UID:
+	 			name = df.iloc[l]["Employee Name"]
+		t_f = "T"
+		return (t_f, name, UID)
+	except:
+		t_f = "F"
+		name = "You are not in the system. Please enter in computer!"
+
+	return (t_f, name, UID)
 
 def add(e_name, UID):
 	
-	df = read_df()
+	df = pd.read_csv('employee_id.csv')
 	indice = len(df) + 1
-	date = datetime.date.today()
+	dates = date.today()
 	print(indice)
 	print(df)
-	df2 = pd.DataFrame([[indice, e_name, date, UID]], columns=('Employment Count', 'Employee Name', 'Employment Date', 'UID'))
+	df2 = pd.DataFrame([[indice, e_name, dates, UID]], columns=('Employment Count', 'Employee Name', 'Employment Date', 'UID'))
 	df = df.append(df2)
 	print(df)
 	df.to_csv('employee_id.csv', index=False)
+	
+	return(e_name + " UID: " + UID)
 	
 def delete(e_name):
 

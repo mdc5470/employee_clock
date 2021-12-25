@@ -4,17 +4,18 @@ import pandas as pd
 from backend_work import *
 from pyfirmata import Arduino, util, STRING_DATA
 
-board = Arduino("/dev/ttyUSB0")
+board = Arduino("/dev/ttyUSB1")
 
 def init_serial():
+
 	i = 0
 	COM = 1
 	global ser
 	ser = serial.Serial()
 	ser.baudrate = 9600
-	ser.port = "/dev/ttyUSB0"
+	ser.port = "/dev/ttyUSB1"
 	
-	ser.timeout = 10
+	ser.timeout = None
 	ser.open()
 
 	return(ser)
@@ -23,31 +24,35 @@ def init_serial():
 	
 	#if ser.isOpen()
 	
-def send_msg(text):
-	if text:
-		board.send_sysex( STRING_DATA, util.str_to_two_byte_iter(text))
+#Writes data to arduino through the serial port	
+def write_read(x):
+
+    arduino = serial.Serial(port='/dev/ttyUSB1', baudrate=9600, timeout=.1)
+    arduino.write(bytes(x, 'utf-8'))
+    #time.sleep(0.05)
+    data = arduino.readline()
+    return data
 	
 def read_data():
 	
 	ser = init_serial()
+	#ser.clear()
 	RFID_Data = ser.readline()
 	if RFID_Data:
-		RFID_Date = RFID_Data.decode()
-		RFID_Date = RFID_Data.strip()
-		RFID_Data = str(RFID_Data);
+		RFID_Data = RFID_Data.decode()
+		RFID_Data = RFID_Data.strip()
+		RFID_Data = str(RFID_Data)
 		return(RFID_Data)
-	
-def write_data():
 
-	ser = init_serial()
-	e_name = "Michael"
-	ser.write(bytes(e_name, 'utf-8'))
-	time.sleep(0.05)
-	
+def clockin_out(UID):
 
-while(True):		
-	data = write_data()
-	print(data)
+#Find the current Date for column reference
+	cur_date = date.today()
+	
+#Look into the table from previous clock 
+	
+	return(in_out)
+
 #Use the function to find if the UID is already used by another person.
  
 
@@ -78,5 +83,21 @@ def det_in_out():
 	#Parse the Serial 
 	
 	
-	#Determine if this person is already clocked in?
+	#Determine if this person is already clocked in?\
+#add("Michael Christopher", "0 76 3F D8 30")
 
+#while True:
+#	f = read_data()
+#	print(f)
+#	#in_out = clockin_out(f)
+	#print(in_out)
+#	t_f, c, UID = find_employee(f)
+#	if t_f == "T":	
+#		write_read(t_f)
+		#time.sleep(0.01)
+#		write_read(c)
+#	elif t_f == "F":
+#		write_read(t_f)
+#		e_name = input("What is your name?")
+#		e_nameuid = add(e_name, UID)
+#		write_read(e_nameuid)

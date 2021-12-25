@@ -45,7 +45,7 @@ A5  LCD SCL Pin
 
 
 
-
+#include <Firmata.h>
 #include <SPI.h>
 #include <MFRC522.h>
 #include <Wire.h>
@@ -64,16 +64,30 @@ MFRC522 mfrc522[NR_OF_READERS];   // Create MFRC522 instance.
 /**
  * Initialize.
  */
-void setup() {
+int lastLine = 1;
 
+void stringDataCallback(char *stringData){
+   if ( lastLine ) {
+     lastLine = 0;
+     
+     lcd.clear();
+   } else {
+     lastLine = 1;
+     lcd.setCursor(0,1);
+   }
+   lcd.print(stringData);
+}
+/*Go through this when it gets restarted on the command.*/
+void setup() {
+  
   {
   lcd.init();                      // initialize the lcd
   // Print a message to the LCD.
   lcd.backlight();
   lcd.setCursor(0,0);
-  lcd.print("<<<Clock IN<<<");
+  lcd.print("Rossell");
   lcd.setCursor(0,1);
-  lcd.print(">>>Clock Out>>>");
+  lcd.print("Automation");
    lcd.setCursor(0,2);
   lcd.print("                    ");
    lcd.setCursor(0,3);
@@ -81,8 +95,13 @@ void setup() {
 
  
 }
-
-
+/*
+  lcd.init();
+  lcd.backlight();
+  Firmata.setFirmwareVersion( FIRMATA_MAJOR_VERSION, FIRMATA_MINOR_VERSION );
+  Firmata.attach( STRING_DATA, stringDataCallback);
+  Firmata.begin();  
+*/
   Serial.begin(9600); // Initialize serial communications with the PC
   while (!Serial);    // Do nothing if no serial port is opened (added for Arduinos based on ATMEGA32U4)
 
@@ -97,28 +116,29 @@ void setup() {
     //Serial.print(F(": "));
     //mfrc522[reader].PCD_DumpVersionToSerial();
  
-}}
+}
+  delay(5000);
+
+  lcd.clear();
+  lcd.print("Please Scan Your");
+  lcd.setCursor(0,1);
+  lcd.print("Badge");
+}
 
 /**
  * Main loop.
  */
 void loop() {
 
-String readString;
-  while (Serial.available()) {
-   delay(2);  //delay to allow byte to arrive in input buffer
-   char c = Serial.read();
-   readString += c;
- }
- if (readString.length() >0) {
-  lcd.setCursor(0,2);
-  lcd.print("                    ");
-  lcd.setCursor(0,2);
-  lcd.print(readString);
-   readString="";
- }
-
- 
+  /*while ( Firmata.available() ) {
+    Firmata.processInput();
+  }*/
+/*while (!Serial.available()){
+  lcd.clear();
+  lcd.print("Please Scan Your");
+  lcd.setCursor(0,1);
+  lcd.print("Badge");
+*/
  
   for (uint8_t reader = 0; reader < NR_OF_READERS; reader++) {
     // Look for new cards
@@ -140,6 +160,58 @@ String readString;
       mfrc522[reader].PCD_StopCrypto1();
     } //if (mfrc522[reader].PICC_IsNewC
   } //for(uint8_t reader
+  String t_f = "";
+  char x;
+if (Serial.available()){  
+  
+  lcd.clear();
+  while (Serial.available()){
+    
+    x = Serial.read();
+    t_f = String(x);
+    /*lcd.print(x);*/
+  }
+    if (t_f == "T"){
+      Serial.end();
+      Serial.begin(9600);
+      delay(500);
+      lcd.clear();
+      if (Serial.available()){
+        lcd.clear();
+        lcd.print("Welcome");
+        lcd.setCursor(0,1);
+      while (Serial.available()){
+      x = Serial.read();
+      lcd.print(x);
+      }
+      }
+    }
+    else if (t_f == "F") {
+      Serial.end();
+      Serial.begin(9600);
+      delay(500);
+      lcd.clear();
+      lcd.print("Please use computer");
+      lcd.setCursor(0,1);
+      lcd.print("to enter name");
+      delay(5000);
+      if (Serial.available()){
+        lcd.clear();
+      while (Serial.available()){
+        x = Serial.read();
+        lcd.print(x);
+      }
+      delay(1000);
+      }
+    
+    }
+  delay(5000);
+  lcd.clear();
+  lcd.print("Please Scan Your");
+  lcd.setCursor(0,1);
+  lcd.print("Badge");
+  }
+ 
 }
 
 /**

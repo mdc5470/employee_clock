@@ -2,7 +2,7 @@
 
 from tkinter import *
 from backend_work import *
-from employee_clock_in_out import *
+
 
 root = Tk()
 root.title("Rossell Automation")
