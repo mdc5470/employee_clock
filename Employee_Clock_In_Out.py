@@ -3,17 +3,33 @@ import time
 import pandas as pd
 from backend_work import *
 from pyfirmata import Arduino, util, STRING_DATA
+import serial.tools.list_ports as list_ports
 
-board = Arduino("/dev/ttyUSB1")
+device_signature = '1a86:7523'
+
+def find_serial_device():
+    """Return the device path based on vender & product ID.
+    
+    The device is something like (like COM4, /dev/ttyUSB0 or /dev/cu.usbserial-1430)
+    """
+    candidates = list(list_ports.grep(device_signature))
+    if not candidates:
+        raise ValueError(f'No device with signature {device_signature} found')
+    if len(candidates) > 1:
+        raise ValueError(f'More than one device with signature {device_signature} found')
+    return candidates[0].device
+
+
+board = Arduino(find_serial_device())
 
 def init_serial():
 
-	i = 0
+	#i = 0
 	COM = 1
 	global ser
 	ser = serial.Serial()
 	ser.baudrate = 9600
-	ser.port = "/dev/ttyUSB1"
+	ser.port = find_serial_device()
 	
 	ser.timeout = None
 	ser.open()
@@ -27,7 +43,7 @@ def init_serial():
 #Writes data to arduino through the serial port	
 def write_read(x):
 
-    arduino = serial.Serial(port='/dev/ttyUSB1', baudrate=9600, timeout=.1)
+    arduino = serial.Serial(port=find_serial_device(), baudrate=9600, timeout=.1)
     arduino.write(bytes(x, 'utf-8'))
     #time.sleep(0.05)
     data = arduino.readline()
@@ -86,18 +102,18 @@ def det_in_out():
 	#Determine if this person is already clocked in?\
 #add("Michael Christopher", "0 76 3F D8 30")
 
-#while True:
-#	f = read_data()
-#	print(f)
-#	#in_out = clockin_out(f)
+while True:
+	f = read_data()
+	print(f)
+	#in_out = clockin_out(f)
 	#print(in_out)
-#	t_f, c, UID = find_employee(f)
-#	if t_f == "T":	
-#		write_read(t_f)
+	t_f, c, UID = find_employee(f)
+	if t_f == "T":	
+		write_read(t_f)
 		#time.sleep(0.01)
-#		write_read(c)
-#	elif t_f == "F":
-#		write_read(t_f)
-#		e_name = input("What is your name?")
-#		e_nameuid = add(e_name, UID)
-#		write_read(e_nameuid)
+		write_read(c)
+	elif t_f == "F":
+		write_read(t_f)
+		e_name = input("What is your name?")
+		e_nameuid = add(e_name, UID)
+		write_read(e_nameuid)
