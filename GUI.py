@@ -16,11 +16,16 @@ def main_page():
 		menun()
 		global label2
 		global button2
-		global button1
+		global button1s
 		label1.destroy()
 		label2=Label(root, text="Add Employee")
 		label2.pack()
-		button2=Button(root, text="Add Employee", command=lambda : add("n", "123"))
+		e_name=Entry(root, bd = 5).pack()
+		#Needs to wait for a new UID to be scanned so that it does not assign a already used UID to the person.
+		#UID = add_people().pack()
+		#print(UID)
+		button2=Button(root, text="Add Employee", command=lambda : det_in_out())
+		
 		button1=Button(root, text="Back to Main Page", command=back)
 		button1.pack()
 		button2.pack(side=BOTTOM)
@@ -33,7 +38,8 @@ def main_page():
 		label1.destroy()
 		label2=Label(root, text="Delete Employee")
 		label2.pack()
-		button2=Button(root, text="Delete Employee", command=lambda : delete("n"))
+		employ_name=Entry(root, bd = 5).pack()
+		button2=Button(root, text="Delete Employee", command=lambda : delete(employ_name))
 		button1=Button(root, text="Back to Main Page", command=back)
 		button1.pack()
 		button2.pack(side=BOTTOM)
@@ -46,11 +52,11 @@ def main_page():
 		label1.destroy()
 		label2=Label(root, text="Export to CSV")
 		label2.pack()
-		button3=Button(root, text="Obtain Week data to CSV", command=lambda : hours_work("11/09/2021", "week")).pack()
-		button2=Button(root, text="Export to CSV", command=lambda : export_cv("Employee Name"))
-		button1=Button(root, text="Back to Main Page", command=back)
-		button1.pack()
-		button2.pack(side=BOTTOM)
+		month_button=Button(root, text="Obtain Month data to CSV", command=lambda : hours_work("11/09/2021", "month")).pack()
+		week_button=Button(root, text="Obtain Week data to CSV", command=lambda : hours_work("11/09/2021", "week")).pack()
+		day_button=Button(root, text="Obtain Day data to CSV", command=lambda : hours_work("11/09/2021", "day")).pack()
+		employ_name=Button(root, text="Export to CSV", command=lambda : export_cv("Employee Name")).pack()
+		main_page=Button(root, text="Back to Main Page", command=back).pack()
 
 	def back():
 		for widgets in root.winfo_children():
