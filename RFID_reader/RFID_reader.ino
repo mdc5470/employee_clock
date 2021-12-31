@@ -52,8 +52,8 @@ A5  LCD SCL Pin
 #include <LiquidCrystal_I2C.h>
 
 #define RST_PIN         9          // Configurable, see typical pin layout above
-#define SS_1_PIN        10         // Configurable, take a unused pin, only HIGH/LOW required, must be diffrent to SS 2
-#define SS_2_PIN        8          // Configurable, take a unused pin, only HIGH/LOW required, must be diffrent to SS 1
+#define SS_1_PIN        8         // Configurable, take a unused pin, only HIGH/LOW required, must be diffrent to SS 2
+#define SS_2_PIN        10          // Configurable, take a unused pin, only HIGH/LOW required, must be diffrent to SS 1
 #define NR_OF_READERS   1
 
 byte ssPins[] = {SS_1_PIN, SS_2_PIN};
