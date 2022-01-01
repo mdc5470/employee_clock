@@ -13,12 +13,21 @@ def find_serial_device():
     The device is something like (like COM4, /dev/ttyUSB0 or /dev/cu.usbserial-1430)
     """
     candidates = list(list_ports.grep(device_signature))
+    print(candidates)
     if not candidates:
-        raise ValueError(f'No device with signature {device_signature} found')
+    	errormess("No device with signature {device_signature} found")
     if len(candidates) > 1:
-        raise ValueError(f'More than one device with signature {device_signature} found')
+        errormess("More than one device with signature {device_signature} found")
     return candidates[0].device
-
+    
+#This error handling needs to de done using a dictionary so we are able to relate an error number to a function that needs to be redone.
+def errormess(message):
+	port = 0
+	time.sleep(5)
+	while len(find_serial_device()) == 0:
+		port = find_serial_device()
+		
+		print(message)
 
 board = Arduino(find_serial_device())
 
@@ -27,11 +36,12 @@ def init_serial():
 	#i = 0
 	COM = 1
 	global ser
+	
 	ser = serial.Serial()
 	ser.baudrate = 9600
 	ser.port = find_serial_device()
 	
-	ser.timeout = None
+	ser.timeout = 5000
 	ser.open()
 
 	return(ser)
@@ -43,7 +53,7 @@ def init_serial():
 #Writes data to arduino through the serial port	
 def write_read(x):
 
-    arduino = serial.Serial(port=find_serial_device(), baudrate=9600, timeout=.1)
+    arduino = serial.Serial(port=find_serial_device(), baudrate=9600, timeout = 0.1)
     arduino.write(bytes(x, 'utf-8'))
     #time.sleep(0.05)
     data = arduino.readline()
@@ -51,27 +61,16 @@ def write_read(x):
 	
 def read_data():
 	
-	ser = init_serial()
-	#ser.clear()
-	RFID_Data = ser.readline()
-	if RFID_Data:
-		RFID_Data = RFID_Data.decode()
-		RFID_Data = RFID_Data.strip()
-		RFID_Data = str(RFID_Data)
-		return(RFID_Data)
-
-def clockin_out(UID):
-
-#Find the current Date for column reference
-	cur_date = date.today()
-	
-#Look into the table from previous clock 
-	
-	return(in_out)
-
-#Use the function to find if the UID is already used by another person.
- 
-
+	try:
+		ser = init_serial()
+		RFID_Data = ser.readline()
+		if RFID_Data:
+			RFID_Data = RFID_Data.decode()
+			RFID_Data = RFID_Data.strip()
+			RFID_Data = str(RFID_Data)
+			return(RFID_Data)
+	except Exception as e:
+		errormess("Hey")
 def det_in_out():
 	
 	#Input of the Serial String in DF
@@ -100,6 +99,3 @@ def det_in_out():
 	
 	
 	#Determine if this person is already clocked in?\
-#add("Michael Christopher", "0 76 3F D8 30")
-
-

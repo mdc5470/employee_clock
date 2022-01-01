@@ -24,11 +24,13 @@ def info_read(col):
 
 #Function should be good to go
 def find_employee(UID):
+#Try to make it  so that we are reading from the same location so that we can centerlize errors
 	df = pd.read_csv('employee_id.csv', index_col=False)
 	name_df = df["UID"]
 	length = len(name_df)
 #Adds people when they are not already in the system.
 	try:
+		print(len(UID))
 		for l in range(len(name_df)):
 			plce = df.iloc[l]["UID"]
 		
@@ -37,8 +39,13 @@ def find_employee(UID):
 		t_f = "T"
 		return (t_f, name, UID)
 	except:
-		t_f = "F"
-		name = "You are not in the system. Please enter in computer!"
+		if UID == None:
+			t_f = "Reconnected"
+			name = "Please reconnect USB"
+			
+		else:
+			t_f = "F"
+			name = "You are not in the system. Please enter in computer!"
 
 	return (t_f, name, UID)
 	

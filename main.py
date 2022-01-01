@@ -1,13 +1,15 @@
 from backend_work import *
 from Employee_Clock_In_Out import *
+#from connect import *
 import time
 
-#git hub key: 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
+#git hub key: 
 
 
 
 while True:
 	f = read_data()
+	#f = USB_interface.read_data()
 	print(f)
 	#in_out = clockin_out(f)
 	#print(in_out)
@@ -22,3 +24,6 @@ while True:
 		e_name = input("What is your name?")
 		e_nameuid = add(e_name, UID)
 		write_read(e_nameuid)
+	elif t_f == "Reconnect":
+		write_read(t_f)
+		
