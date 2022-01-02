@@ -4,7 +4,7 @@ import serial.tools.list_ports as list_ports
 
 class USB_interface:
 
-	def __init_(self):
+	def __init__(self):
 		self.ser = None
 		
 	def find_serial_device():
@@ -19,11 +19,11 @@ class USB_interface:
 			errormess = "More than one device with signature " + device_signature + " found"
 		return candidates[0].device
 	
-	def connect():
+	def connect(self):
 	
 		try:
 			if self.ser == None:
-				self.ser = serial.Serial(port = find_serial_device(),  buadrate=9600, timeout = 0.1)
+				self.ser = serial.Serial(port = USB_interface.find_serial_device(),  baudrate=9600, timeout = 0.1)
 				return True
 			else: 
 				if self.ser.isOpen():
@@ -32,13 +32,15 @@ class USB_interface:
 				else:
 					self.ser.open()
 					return True
-		except serial.SerialException as e:
+		except Exception as e:
 			return False
 					
-	def isConnected():
+	def isConnected(self):
 	
 		try:
-			return self.ser.isOpen()
+			th = self.ser.isOpen()
+			print(th)
+			return True
 		except:
 			return False
 					
@@ -49,15 +51,16 @@ class USB_interface:
 		except Exception as e:
 			tkMessageBox.showerror('Serial connection error', 'Error sending message')
 			
-	def read_data():
+	def read_datas(self):
 	
 		try:
 			RFID_Data = self.ser.readline()
-			if RFID_Data:
+			print(RFID_Data)
+			if len(RFID_Data) > 1:
 				RFID_Data = RFID_Data.decode()
 				RFID_Data = RFID_Data.strip()
-				RFID_Data = str(RFID_Data)
-			return RFID_Data
+				RFID_Datas = str(RFID_Data)
+			return RFID_Datas
 		except Exception as e:
 			print("Hey")
 			#tkMessageBox.showerror('Serial connection error', 'Error sending message')

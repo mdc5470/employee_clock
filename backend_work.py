@@ -5,7 +5,8 @@ from datetime import timedelta
 from io import StringIO
 from hours_worked import *
 import numpy as np
-
+from connect import USB_interface
+import time
 
 #All functions of the program work.
 #Needs checks and balnces and errors
@@ -30,7 +31,7 @@ def find_employee(UID):
 	length = len(name_df)
 #Adds people when they are not already in the system.
 	try:
-		print(len(UID))
+		#print(len(UID))
 		for l in range(len(name_df)):
 			plce = df.iloc[l]["UID"]
 		
@@ -39,8 +40,18 @@ def find_employee(UID):
 		t_f = "T"
 		return (t_f, name, UID)
 	except:
-		if UID == None:
-			t_f = "Reconnected"
+		con = USB_interface()
+		t = con.connect()
+		#print("Is it COnnected:" + str(t))
+		#print(UID)
+		if UID == None and con.isConnected() == True:
+			#print("if")
+			t_f = "Waiting on Data"
+			name = "Waiting on Data"
+			
+		elif UID == None and con.isConnected() == False:
+			#print("Elif")
+			t_f = "In Disconnect State"
 			name = "Please reconnect USB"
 			
 		else:
