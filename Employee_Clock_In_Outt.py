@@ -28,13 +28,9 @@ def errormess(message):
 	print(message)
 	time.sleep(2)
 	while len(find_serial_device()) == 0:
-		print(message)
-	
-		
-		
+		print(message)		
 
 board = Arduino(find_serial_device())
-
 
 
 def init_serial():

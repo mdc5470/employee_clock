@@ -24,7 +24,7 @@ def info_read(col):
 	return(str(df_info))
 
 #Function should be good to go
-def find_employee(UID):
+def find_employee(UID, con):
 #Try to make it  so that we are reading from the same location so that we can centerlize errors
 	df = pd.read_csv('employee_id.csv', index_col=False)
 	name_df = df["UID"]
@@ -40,8 +40,9 @@ def find_employee(UID):
 		t_f = "T"
 		return (t_f, name, UID)
 	except:
-		con = USB_interface()
-		t = con.connect()
+#*****This is a strange spot to check the connectivity of teh device this should be move to somewhere else
+		
+		#t = con.connect()
 		#print("Is it COnnected:" + str(t))
 		#print(UID)
 		if UID == None and con.isConnected() == True:
@@ -79,7 +80,7 @@ def clock_in_out(UID):
 	count_col = df.shape[1] - 1
 	
 	
-	print("THis is count Col:" + str(count_col))
+	print("This is count Col:" + str(count_col))
 
 	
 	i = 0

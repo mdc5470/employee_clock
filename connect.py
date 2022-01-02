@@ -12,7 +12,7 @@ class USB_interface:
 		device_signature = "1a86:7523"
 		
 		candidates = list(list_ports.grep(device_signature))
-	
+		print(candidates)
 		if not candidates:
 			errormess = "No device with signature " + device_signature + " found"
 		if len(candidates) > 1:
@@ -23,7 +23,9 @@ class USB_interface:
 	
 		try:
 			if self.ser == None:
-				self.ser = serial.Serial(port = USB_interface.find_serial_device(),  baudrate=9600, timeout = 0.1)
+				port = USB_interface.find_serial_device()
+				self.ser = serial.Serial(port,  baudrate=9600, timeout = 0.1)
+				print(port)
 				return True
 			else: 
 				if self.ser.isOpen():
@@ -34,20 +36,22 @@ class USB_interface:
 					return True
 		except Exception as e:
 			return False
-					
+	
+#This function is to let us know if the serial port is open and ready to receive data.			
 	def isConnected(self):
 	
 		try:
-			th = self.ser.isOpen()
-			print(th)
+			conn = USB_interface.find_serial_device()
+			print("The device is connected on port: " + str(conn))
 			return True
 		except:
 			return False
 					
-	def wirte_data(self, data):
+	def write_data(self, data):
 	
 		try:
 			self.ser.write(bytes(data, 'utf-8'))
+			data = self.ser.readline()
 		except Exception as e:
 			tkMessageBox.showerror('Serial connection error', 'Error sending message')
 			
@@ -55,19 +59,19 @@ class USB_interface:
 	
 		try:
 			RFID_Data = self.ser.readline()
-			print(RFID_Data)
+			print("This is the RFID Data: " + str(RFID_Data))
 			if len(RFID_Data) > 1:
 				RFID_Data = RFID_Data.decode()
 				RFID_Data = RFID_Data.strip()
 				RFID_Datas = str(RFID_Data)
 			return RFID_Datas
 		except Exception as e:
-			print("Hey")
+			print("Nothing to read for the read_datas of USB_interface")
 			#tkMessageBox.showerror('Serial connection error', 'Error sending message')
 		
-	def disconnect():
+	def disconnect(self):
 	
-		self.ser = disconnect()
+		self.ser.close()
 		
 		
 
