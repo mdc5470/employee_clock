@@ -3,12 +3,12 @@ from backend_work import *
 from connect import USB_interface
 import time
 
+
 #git hub key: 
 con = USB_interface()
-con.connect()
+con.connect()	
 while True:
 	if con.isConnected():
-
 		#f = read_data()
 		f = con.read_datas()
 		print(f)
@@ -40,6 +40,4 @@ while True:
 		#con.disconnect()
 		con = USB_interface()
 		con.connect()
-		
-		
-		
+
