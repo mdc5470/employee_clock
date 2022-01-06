@@ -47,6 +47,8 @@ while True:
 def pop_up(): 
 	root = Tk()
 	root.title("Rossell Automation")
+	root..geometry("500x200")
+	
 	employ_name = StringVar()
 	global label1
 	label1=Label(root, text="Rossell Automation")
