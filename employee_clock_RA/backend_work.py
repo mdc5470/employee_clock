@@ -15,7 +15,7 @@ from datetime import datetime
 
 #Export Data to Pandas DF
 def read_df():
-	df = pd.read_csv('employee_id.csv')
+	df = pd.read_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv')
 	df = df.dropna()
 	return(df)
 
@@ -27,7 +27,7 @@ def info_read(col):
 #Function should be good to go
 def find_employee(UID, con):
 #Try to make it  so that we are reading from the same location so that we can centerlize errors
-	df = pd.read_csv('employee_id.csv', index_col=False)
+	df = pd.read_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv', index_col=False)
 	name_df = df["UID"]
 	length = len(name_df)
 #Adds people when they are not already in the system.
@@ -68,7 +68,7 @@ def clock_in_out(UID):
 	
 	cur_date_time = datetime.strftime(cur_date_time, "%m/%d/%Y, %H:%M:%S")
 	
-	df = pd.read_csv('employee_id.csv', index_col=False)
+	df = pd.read_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv', index_col=False)
 	df = df.fillna(0.0)
 	name_df = df["UID"]
 	
@@ -105,12 +105,12 @@ def clock_in_out(UID):
 		df = df.fillna(0)	
 	
 	df.iat[indexloc, actualloc] = cur_date_time
-	df.to_csv('employee_id.csv', index=False)	
+	df.to_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv', index=False)	
 	
 		
 def add(e_name, UID):
 	
-	df = pd.read_csv('employee_id.csv')
+	df = pd.read_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv')
 	indice = len(df) + 1
 	dates = date.today()
 	print(indice)
@@ -118,7 +118,7 @@ def add(e_name, UID):
 	df2 = pd.DataFrame([[indice, e_name, dates, UID]], columns=('Employment Count', 'Employee Name', 'Employment Date', 'UID'))
 	df = df.append(df2)
 	print(df)
-	df.to_csv('employee_id.csv', index=False)
+	df.to_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv', index=False)
 	
 	return(e_name + " UID: " + UID)
 	
@@ -127,7 +127,7 @@ def delete(e_name):
 	df = read_df()
 	df = df[df["Employee Name"] != e_name]
 	print(df)
-	df.to_csv('employee_id.csv', index=False)
+	df.to_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv', index=False)
 	
 def hours_work(end_day, type, start_day):
 	

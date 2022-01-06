@@ -4,6 +4,34 @@ from connect import USB_interface
 import time
 from tkinter import *
 
+def pop_up(): 
+	root = Tk()
+	root.title("Rossell Automation")
+	employ_name = StringVar()
+	global label1
+	label1=Label(root, text="Rossell Automation")
+	label1.pack()
+
+	
+	menubar = Menu(root)
+	filemenu = Menu(menubar, tearoff=0)
+	filemenu.add_command(label="Exit", command=exit)
+	menubar.add_cascade(label="File", menu=filemenu)
+	root.config(menu=menubar)
+	
+	employ_names = Entry(root, textvariable = employ_name).pack()
+	button = Button(root, text="Enter", command=lambda : exit(root, employ_name)).pack()
+
+	
+#root.attributes('-fullscreen', True)
+	root.mainloop()
+
+
+def exit(root, employ_name):
+	global employ_name_get
+	employ_name_get = employ_name.get()
+	root.destroy()
+
 
 #git hub key: 
 con = USB_interface()
@@ -44,34 +72,4 @@ while True:
 		con.connect()
 
 
-def pop_up(): 
-	root = Tk()
-	root.title("Rossell Automation")
-	employ_name = StringVar()
-	global label1
-	label1=Label(root, text="Rossell Automation")
-	label1.pack()
-
-	
-	menubar = Menu(root)
-	filemenu = Menu(menubar, tearoff=0)
-	filemenu.add_command(label="Exit", command=exit)
-	menubar.add_cascade(label="File", menu=filemenu)
-	root.config(menu=menubar)
-	
-	employ_names = Entry(root, textvariable = employ_name).pack()
-	button = Button(root, text="Enter", command=lambda : exit(root, employ_name)).pack()
-
-	
-#root.attributes('-fullscreen', True)
-	root.mainloop()
-
-
-def exit(root, employ_name):
-	global employ_name_get
-	employ_name_get = employ_name.get()
-	root.destroy()
-
-def exit():
-		root.destroy()
 

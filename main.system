@@ -1,0 +1,25 @@
+**File needs to be added to systemd/system dir to automaticcally start script on boot. graphical.target is needed for tkinter to boot
+
+
+
+[Unit]
+# After=network.service
+Description=Employee Clock
+After=graphical.target
+Wants=graphical.target
+
+[Service]
+# WorkingDirectory=/code/python/myapp
+User=mdc5470
+Group=mdc5470
+Environment="DISPLAY=:0.0"
+Environment="XAUTHORITY=/home/mdc5470/.Xauthority"
+#ExecStartPre=/usr/bin/printenv
+ExecStart=/usr/bin/python3  /home/mdc5470/Documents/employee_clock/employee_clock_RA/main.py
+# User=do-user
+
+[Install]
+#WantedBy=multi-user.target
+# WantedBy=default.target
+WantedBy=graphical.target
+
