@@ -162,6 +162,7 @@ void loop() {
   } //for(uint8_t reader
   String t_f = "";
   char x;
+  int t;
 if (Serial.available()){  
   
   lcd.clear();
@@ -195,6 +196,9 @@ if (Serial.available()){
       lcd.setCursor(0,1);
       lcd.print("to enter name");
       delay(5000);
+      t = 0;
+      /*While loop with a timeout*/
+      while (t != 10) {
       if (Serial.available()){
         lcd.clear();
       while (Serial.available()){
@@ -202,7 +206,12 @@ if (Serial.available()){
         lcd.print(x);
       }
       delay(1000);
+      t = 10;
       }
+      else {
+      delay(1000);
+      t = t + 1;
+      }}
     
     }
   delay(5000);

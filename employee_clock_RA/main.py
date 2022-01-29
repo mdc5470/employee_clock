@@ -11,6 +11,8 @@ def pop_up():
 	global label1
 	label1=Label(root, text="Rossell Automation")
 	label1.pack()
+	
+	root.geometry("500x300")
 
 	
 	menubar = Menu(root)
@@ -20,14 +22,19 @@ def pop_up():
 	root.config(menu=menubar)
 	
 	employ_names = Entry(root, textvariable = employ_name).pack()
-	button = Button(root, text="Enter", command=lambda : exit(root, employ_name)).pack()
+	
+	
+	#root.bind('<Return>', button, add='+')
+	
+	button = Button(root, text="Enter", command=lambda : exit(root, employ_name))
+	button.pack()
 
 	
 #root.attributes('-fullscreen', True)
 	root.mainloop()
 
 
-def exit(root, employ_name):
+def exit(root, employ_name, event=None):
 	global employ_name_get
 	employ_name_get = employ_name.get()
 	root.destroy()
@@ -53,10 +60,14 @@ while True:
 			clock_in_out(UID)
 		elif t_f == "F":
 			con.write_data(t_f)
-			pop_up()
-			print(employ_name_get)
-			e_nameuid = add(employ_name_get, UID)
-			con.write_data(employ_name_get)
+			try:
+				pop_up()
+				print(employ_name_get)
+				e_nameuid = add(employ_name_get, UID)
+				con.write_data(employ_name_get + " UID: " + UID)
+			except:
+				print("Program Closed")
+			
 		elif t_f == "In Disconnect State":
 			print(t_f)
 		else:

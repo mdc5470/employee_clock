@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/static/css/home.css">
+	<title>Using </title>
+	<div id="logo">
+		<img src="{{ url_for('static', filename='img/rossell_auto.jpg') }}"
+			width="300"
+			height="225" />
+	</div>
+</head>
+<body>
+	<div class="topnav">
+		<a href="/">Home</a>
+		<a href="/employee">Employee</a>
+		<a href="/tools">Tools</a>
+		<a href="/view">View</a>
+		<a class="active" href="/export">Export</a>
+	</div>
+	
+	<div class="middlenav">
+		
+		<a href="/clock_in">Space 1</a>
+		<a href="/clock_out">Space 2</a>
+		<a href="/lookup">Space 3</a>
+	</div>
+
+<table>
+        <tr>
+            <td>ID</td>
+            <td>Date</td>
+            <td>Time</td>
+            <td>Company</td>
+            <td>TestStationID</td>
+			<td>OperatorID</td>
+            <td>Job_Number</td>
+            <td>Serialnumber</td>
+            <td>SearchCameras</td>
+            <td>TestResult</td>
+        </tr>
+        {% for columns in result %}
+        <tr>
+            <td>{{ columns.id }}</td>
+            <td>{{ columns.Date }}</td>
+            <td>{{ columns.Time }}</td>
+            <td>{{ columns.Company }}</td>
+            <td>{{ columns.TestStationID }}</td>
+            <td>{{ columns.OperatorID }}</td>
+            <td>{{ columns.Job_Number }}</td>
+            <td>{{ columns.Serialnumber }}</td>
+            <td>{{ columns.SearchCameras }}</td>
+            <td>{{ columns.TestResult }}</td>
+        </tr>
+        {% endfor %}
+
+</table>
+</body>
+</html>

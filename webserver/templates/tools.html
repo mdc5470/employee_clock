@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/static/css/home.css">
+	<title>Using </title>
+	<div id="logo">
+		<img src="{{ url_for('static', filename='img/rossell_auto.jpg') }}"
+			width="300"
+			height="225" />
+	</div>
+
+	<div class="topnav">
+		<a href="/">Home</a>
+		<a href="/employee">Employee</a>
+		<a class="active" href="/tools">Tools</a>
+		<a href="/view">View</a>
+		<a href="/export">Export</a>
+	</div>
+</head>
+
+<body>
+	<h1>
+		Add Employee
+	</h1>
+	<form action="/tools" method="post">
+	
+		First Name: <input type="text" name="first_name">  
+	<br />
+		Last Name: <input type="text" name="last_name" />
+	
+	<input type="submit" name= "form" value="Submit" />
+	
+	</form>
+	
+	<h2>
+		Modify Employee
+	</h2>
+	<h3>
+		Delete Employee
+	</h3>
+	
+</body>
+</html>

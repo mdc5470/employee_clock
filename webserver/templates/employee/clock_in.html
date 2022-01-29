@@ -1,0 +1,57 @@
+<!DOCTYPEhtml>
+<html>
+<head>
+	<link rel="stylesheet" href="/static/home.css">
+	<div id="logo">
+		<img src="{{ url_for('static', filename='img/seegridlogo.jpg') }}">
+	</div>
+</head>
+<body>
+	<div class="topnav">
+		<a href="/">Home</a>
+		<a href="/supply_chain">Supply Chain</a>
+		<a href="/mfg">Manufacturing</a>
+		<a class="active" href="/qc">Quality Control</a>
+		<a href="/service">Service</a>
+		<a href="/red_tag">Red Tag</a>
+		<a href="/yellow_tag">Yellow Tag</a>
+	</div>
+	<div class="topnav">
+		<a href="/supplier">Supplier Quality</a>
+		<a href="/smld">SMLDs</a>
+		<a href="/qcd">QCDs</a>
+		<a class="active" href="/customer">Customer Quality</a>
+	</div>
+
+<table>
+        <tr>
+            <td>ID</td>
+            <td>Date</td>
+            <td>Time</td>
+            <td>Company</td>
+            <td>TestStationID</td>
+			<td>OperatorID</td>
+            <td>Job_Number</td>
+            <td>Serialnumber</td>
+            <td>TestResult</td>
+        </tr>
+        {% for columns in result %}
+        <tr>
+            <td>{{ columns.0 }}</td>
+			<td>{{ columns.1 }}</td>
+			<td>{{ columns.2 }}</td>
+			<td>{{ columns.3 }}</td>
+			<td>{{ columns.4 }}</td>
+			<td>{{ columns.5 }}</td>
+			<td>{{ columns.6 }}</td>
+			<td>{{ columns.7 }}</td>
+			<td>{{ columns.164 }}</td>
+        </tr>
+        {% endfor %}
+
+</table>
+	{{cam_num_fail}}
+	{{cam_per_fail}}
+	{{cam_per_pass}}
+</body>
+</html>

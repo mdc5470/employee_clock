@@ -10,6 +10,7 @@ Wants=graphical.target
 
 [Service]
 # WorkingDirectory=/code/python/myapp
+Type=forking
 User=mdc5470
 Group=mdc5470
 Environment="DISPLAY=:0.0"
@@ -17,6 +18,8 @@ Environment="XAUTHORITY=/home/mdc5470/.Xauthority"
 #ExecStartPre=/usr/bin/printenv
 ExecStart=/usr/bin/python3  /home/mdc5470/Documents/employee_clock/employee_clock_RA/main.py
 # User=do-user
+Restart=on-success
+RestartSec=5s
 
 [Install]
 #WantedBy=multi-user.target

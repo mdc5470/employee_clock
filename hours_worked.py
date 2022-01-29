@@ -3,12 +3,15 @@ from openpyxl import load_workbook
 from datetime import datetime
 from datetime import timedelta
 
+#This will bve used to calculate the hours from the front end. We will need to make a report generated in this format
+
+
 def day_calc(day, df, num_days, num_employ):
 
-# These will be grabbed values, but for now they are values that are used 
+# These will be grabbed values, but for now they are values that are used
 
 	total = pd.DataFrame()
-
+	
 	
 	for j in range(num_days):
 		

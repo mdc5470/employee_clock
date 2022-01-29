@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+<head>
+	<link rel="stylesheet" href="/static/css/home.css">
+	<title>Using </title>
+	<div id="logo">
+		<img src="{{ url_for('static', filename='img/seegridlogo.jpg') }}">
+	</div>
+</head>
+<body>
+	<div class="topnav">
+		<a href="/">Home</a>
+		<a href="/supply_chain">Supply Chain</a>
+		<a class="active" href="/mfg">Manufacturing</a>
+		<a href="/qc">Quality Control</a>
+		<a href="/service">Service</a>
+		<a href="/red_tag">Red Tag</a>
+		<a href="/yellow_tag">Yellow Tag</a>
+	</div>
+	<div class="middlenav">
+		<a class="active" href="/sts">STS Reports</a>
+	</div>
+</body>
+</html>
