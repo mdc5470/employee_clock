@@ -1,9 +1,5 @@
+class add(e_name, UID):
 
-def create_add_request():
-
-	
-
-def add(e_name, UID):
 	
 	df = pd.read_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv')
 	indice = len(df) + 1
@@ -15,4 +11,4 @@ def add(e_name, UID):
 	print(df)
 	df.to_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv', index=False)
 	
-	return(e_name + " UID: " + UID)
+return(e_name + " UID: " + UID)

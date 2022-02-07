@@ -1,0 +1,29 @@
+{% extends 'bootstrap/base.html' %}
+
+
+{% block content %}
+<html>
+<head>
+	<link rel="stylesheet" href="/static/css/home.css">
+	<title>Using </title>
+	<div id="logo">
+		<img src="{{ url_for('static', filename='img/rossell_auto.jpg') }}"
+			width="300"
+			height="225" />
+	</div>
+</head>
+<body>
+	<div class="topnav">
+		<a class="active" href="/">Home</a>
+		<a href="/employee">Employee</a>
+		<a href="/tools">Tools</a>
+		<a href="/view">View</a>
+		<a href="/export">Export</a>
+	</div>
+
+</body>
+
+<h1>Thank you for subscribing</h1>
+	{{ first_name }} {{ last_name }}
+	
+{% endblock %}

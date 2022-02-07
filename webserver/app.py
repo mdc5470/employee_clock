@@ -1,13 +1,22 @@
 from flask import Flask, render_template, request
-from db_libs.db_func import *
 import pandas as pd
-from cam_analysis import *
 import os
-
+from flask import Flask, render_template, redirect, url_for
+from flask_bootstrap import Bootstrap
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired
+from tools import *
 
 
 #conn = create_server_connection("192.168.18.36", "sqluser", "", "Production_db")
 app=Flask(__name__)
+
+# Flask-WTF requires an encryption key - the string can be anything
+app.config['SECRET_KEY'] = 'C2HWGVoMGfNTBsrYQg8EcMrdTimkZfAb'
+
+# Flask-Bootstrap requires this line
+Bootstrap(app)
 
 @app.route('/')
 def show_index():
@@ -49,13 +58,21 @@ def tools():
 
 @app.route('/view/')
 def view():
-	first_name = request.form['first_name']
-	last_name = request.form['last_name']
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
 	return render_template("view.html")
 
-#@app.route('/export_data/')
-#def export_data():
-#	return render_template("export_data.html")
+@app.route('/form', methods=["POST"])
+def form():
+	
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
+	UID = request.form.get("UID")
+	add_employ(first_name+last_name, UID)
+	
+	
+	
+	return render_template("form.html", first_name=first_name, last_name=last_name)
 
 #@app.route('/camera/')
 #def camera():
