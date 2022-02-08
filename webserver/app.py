@@ -7,7 +7,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from tools import *
-
+from employee import *
 
 #conn = create_server_connection("192.168.18.36", "sqluser", "", "Production_db")
 app=Flask(__name__)
@@ -62,17 +62,48 @@ def view():
 	last_name = request.form.get("last_name")
 	return render_template("view.html")
 
-@app.route('/form', methods=["POST"])
-def form():
+@app.route('/addform', methods=["POST"])
+def addform():
 	
 	first_name = request.form.get("first_name")
 	last_name = request.form.get("last_name")
 	UID = request.form.get("UID")
 	add_employ(first_name+last_name, UID)
 	
+	return render_template("form.html", first_name=first_name, last_name=last_name, UID=UID, formtype="add")
 	
+@app.route('/deleteform', methods=["POST"])
+def deleteform():
 	
-	return render_template("form.html", first_name=first_name, last_name=last_name)
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
+	UID = request.form.get("UID")
+	delete_employ(first_name+last_name)
+	
+	return render_template("form.html", first_name=first_name, last_name=last_name, UID=UID, formtype="delete")
+
+@app.route('/modifyform', methods=["POST"])
+def modifyform():
+	
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
+	UID = request.form.get("UID")
+	new_first_name = request.form.get("first_name")
+	new_last_name = request.form.get("last_name")
+	new_UID = request.form.get("UID")
+	modify_employ(first_name+last_name, UID, new_first_name+new_last_name, new_UID)
+	
+	return render_template("form.html", first_name=first_name, last_name=last_name, UID=UID, formtype="modify")
+	
+@app.route('/look_up', methods=["POST"])
+def look_up():
+	
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
+	UID = request.form.get("UID")
+	look_up_func(first_name+last_name, UID)
+	
+	return render_template("look_up.html", first_name=first_name, last_name=last_name, UID=UID, formtype="look_up")
 
 #@app.route('/camera/')
 #def camera():
@@ -98,10 +129,6 @@ def clock_in():
 @app.route('/clock_out/')
 def clock_out():
 	return render_template("employee/clock_out.html")
-
-@app.route('/lookup/')
-def lookup():
-	return render_template("employee/lookup.html")
 
 @app.route('/add/')
 def add():

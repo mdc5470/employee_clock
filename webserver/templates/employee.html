@@ -24,35 +24,59 @@
 		<a href="/clock_out">Clock Out</a>
 		<a href="/lookup">Lookup</a>
 	</div>
-	
-<table>
-        <tr>
-            <td>ID</td>
-            <td>Date</td>
-            <td>Time</td>
-            <td>Company</td>
-            <td>TestStationID</td>
-			<td>OperatorID</td>
-            <td>Job_Number</td>
-            <td>Serialnumber</td>
-            <td>SearchCameras</td>
-            <td>TestResult</td>
-        </tr>
-        {% for columns in result %}
-        <tr>
-            <td>{{ columns.id }}</td>
-            <td>{{ columns.Date }}</td>
-            <td>{{ columns.Time }}</td>
-            <td>{{ columns.Company }}</td>
-            <td>{{ columns.TestStationID }}</td>
-            <td>{{ columns.OperatorID }}</td>
-            <td>{{ columns.Job_Number }}</td>
-            <td>{{ columns.Serialnumber }}</td>
-            <td>{{ columns.SearchCameras }}</td>
-            <td>{{ columns.TestResult }}</td>
-        </tr>
-        {% endfor %}
 
-</table>
+	<h1>
+		Clock In
+	</h1>
+
+	<form action="/clock_in" method="POST">
+	
+		First Name: <input type="text" name="first_name">  
+	<br />
+		Last Name: <input type="text" name="last_name" />
+		
+	<br />
+	
+		UID: <input type="text" name="UID" />
+	
+	<input type="submit" name= "form" value="Submit" />
+	
+	</form>
+	
+	<h1>
+		Clock Out
+	</h1>
+	
+	<form action="/clock_out" method="post">
+	
+		First Name: <input type="text" name="first_name">  
+	<br />
+		Last Name: <input type="text" name="last_name" />
+		
+	<br />
+		UID: <input type="text" name="UID" />
+	
+	<input type="submit" name= "form" value="Submit" />
+	
+	</form>
+	
+	<h1>
+		Look Up
+	</h1>
+	
+	<form action="/look_up" method="post">
+	
+		First Name: <input type="text" name="first_name">  
+	<br />
+		Last Name: <input type="text" name="last_name" />
+	<br />
+		UID: <input type="text" name="UID" />
+
+	<input type="submit" name= "form" value="Submit" />
+	
+	</form>
+
+
 </body>
+
 </html>

@@ -16,14 +16,19 @@ def add_employ(e_name, UID):
 	
 	return(e_name + " UID: " + UID)
 	
-def delete_employ(e_name):
+def look_up_func(e_name, UID):
 
 	df = pd.read_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv')
-	df = df[df["Employee Name"] != e_name]
-	print(df)
-	df.to_csv('/home/mdc5470/Documents/employee_clock/employee_id.csv', index=False)
+	name_df = df["UID"]
+	length = len(name_df)
 	
-def modify_employ(e_name, UID, new_e_name, new_UID):
-
-	delete_employ(e_name)
-	add_employ(new_e_name, new_UID)
+	for l in range(len(name_df)):
+		plce = df.iloc[l]["UID"]
+	
+		if plce == UID:
+			indice = l
+			print (plce + "   " + str(l))
+			
+	print(df.iloc[[l]])
+	
+		

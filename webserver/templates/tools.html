@@ -23,7 +23,7 @@
 		Add Employee
 	</h1>
 
-	<form action="/form" method="POST">
+	<form action="/addform" method="POST">
 	
 		First Name: <input type="text" name="first_name">  
 	<br />
@@ -41,27 +41,36 @@
 		Delete Employee
 	</h1>
 	
-	<form action="/tools" method="post">
+	<form action="/deleteform" method="post">
 	
 		First Name: <input type="text" name="first_name">  
 	<br />
 		Last Name: <input type="text" name="last_name" />
+		
+	<br />
+		UID: <input type="text" name="UID" />
 	
 	<input type="submit" name= "form" value="Submit" />
 	
 	</form>
 	
 	<h1>
-		Modify Employee's Time
+		Modify Employee
 	</h1>
 	
-	<form action="/tools" method="post">
+	<form action="/modifyform" method="post">
 	
 		First Name: <input type="text" name="first_name">  
 	<br />
 		Last Name: <input type="text" name="last_name" />
 	<br />
-		
+		UID: <input type="text" name="UID" />
+	<br />
+		New First Name: <input type="text" name="new_first_name" />
+	<br />
+		New Last Name: <input type="text" name="new_last_name" />
+	<br />
+		New UID: <input type="text" name="new_UID" />
 			
 	<input type="submit" name= "form" value="Submit" />
 	
