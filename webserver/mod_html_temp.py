@@ -1,8 +1,15 @@
-{% extends 'bootstrap/base.html' %}
+import os
 
 
-{% block content %}
-<html>
+def modify_html(filter_employ_df):
+	
+	os.remove("templates/look_up_try.html")
+	
+	filter_employ_df = filter_employ_df.to_html()
+	
+	
+	text_file = open("templates/look_up_try.html", "w")
+	head = """<html>
 <head>
 	<link rel="stylesheet" href="/static/css/home.css">
 	<title>Using </title>
@@ -21,9 +28,8 @@
 		<a href="/export">Export</a>
 	</div>
 
-</body>
-
-<h1>{{filter_employ_df}} {{ first_name }} {{ last_name }} has been {{formtype}} under {{UID}}</h1>
-
-	
-{% endblock %}
+</body>"""
+	text_file.write(head)
+	text_file.write(filter_employ_df)
+	text_file.close()
+				

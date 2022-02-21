@@ -8,6 +8,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 from tools import *
 from employee import *
+import os
 
 #conn = create_server_connection("192.168.18.36", "sqluser", "", "Production_db")
 app=Flask(__name__)
@@ -62,6 +63,8 @@ def view():
 	last_name = request.form.get("last_name")
 	return render_template("view.html")
 
+#Tools page routing and the functions that are needed to modify the html files.
+
 @app.route('/addform', methods=["POST"])
 def addform():
 	
@@ -94,16 +97,42 @@ def modifyform():
 	modify_employ(first_name+last_name, UID, new_first_name+new_last_name, new_UID)
 	
 	return render_template("form.html", first_name=first_name, last_name=last_name, UID=UID, formtype="modify")
+
+#Employee page routing and the functions that are needed to modify the html files. 
+
+@app.route('/mod_clock_in', methods=["POST"])
+def mod_clock_in():
+
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
+	UID = request.form.get("UID")	
+	date_mod = request.form.get("date_mod")
+	time_mod = request.form.get("time_mod")
+	mod_clock_in(first_name+last_name, UID, date_mod, time_mod)
+	return render_template("look_up_try.html", formtype="look_up")
 	
+def mod_clock_out():
+
+	first_name = request.form.get("first_name")
+	last_name = request.form.get("last_name")
+	UID = request.form.get("UID")	
+	date_mod = request.form.get("date_mod")
+	time_mod = request.form.get("time_mod")
+	mod_clock_out(first_name+last_name, UID, date_mod, time_mod)
+	return render_template("look_up_try.html", formtype="look_up")
+	
+
 @app.route('/look_up', methods=["POST"])
 def look_up():
 	
+#Get the info from the form in the HTML file
 	first_name = request.form.get("first_name")
 	last_name = request.form.get("last_name")
-	UID = request.form.get("UID")
+	UID = request.form.get("UID")	
 	look_up_func(first_name+last_name, UID)
 	
-	return render_template("look_up.html", first_name=first_name, last_name=last_name, UID=UID, formtype="look_up")
+	
+	return render_template("look_up_try.html", formtype="look_up")
 
 #@app.route('/camera/')
 #def camera():
@@ -144,4 +173,4 @@ def delete():
 
 
 if __name__=="__main__":
-	app.run(host='localhost', port=9875)
+	app.run(debug=True)

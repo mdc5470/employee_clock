@@ -29,15 +29,17 @@
 		Clock In
 	</h1>
 
-	<form action="/clock_in" method="POST">
+	<form action="/mod_clock_in" method="POST">
 	
 		First Name: <input type="text" name="first_name">  
 	<br />
 		Last Name: <input type="text" name="last_name" />
-		
 	<br />
-	
 		UID: <input type="text" name="UID" />
+	<br />
+		Date to Modify: <input type="text" name="date_mod" />
+	<br />
+		Time to Modify: <input type="text" name="time_mod" />
 	
 	<input type="submit" name= "form" value="Submit" />
 	
@@ -47,14 +49,17 @@
 		Clock Out
 	</h1>
 	
-	<form action="/clock_out" method="post">
+	<form action="/mod_clock_out" method="post">
 	
 		First Name: <input type="text" name="first_name">  
 	<br />
 		Last Name: <input type="text" name="last_name" />
-		
 	<br />
 		UID: <input type="text" name="UID" />
+	<br />
+		Date to Modify: <input type="text" name="date_mod" />
+	<br />
+		Time to Modify: <input type="text" name="time_mod" />
 	
 	<input type="submit" name= "form" value="Submit" />
 	
